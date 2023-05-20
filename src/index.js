@@ -3,7 +3,6 @@ import './css/styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 var debounce = require('lodash.debounce');
 
-
 const DEBOUNCE_DELAY = 300;
 
 const refs = {
@@ -25,7 +24,9 @@ function onInputValue() {
 function onShowData() {
   fetchCountries(refs.inputEl.value.trim())
     .then(data => {
-     if (data.length > 10) {
+      if (data.length > 10) {
+      refs.countryListEl.innerHTML = '';
+      refs.countryInfoEl.innerHTML = '';
       Notify.info("Too many matches found. Please enter a more specific name.")
     } else if (data.length >= 2 && data.length < 10) {
       createMarkupList(data);      
@@ -50,7 +51,7 @@ function createMarkupList(data) {
 }
 
 function createMarkupInfo(data) {
-      refs.countryListEl.innerHTML = '';
+  refs.countryListEl.innerHTML = '';
   refs.countryInfoEl.innerHTML = data.reduce((item, { name, capital, population, flags, languages }) =>
     item +`
       <ul>
@@ -70,17 +71,6 @@ function createMarkupInfo(data) {
           <h3>Languages:</h3>
           <p>${Object.values(languages)}</p>
         </li>
-      </ul>`
-    // `<li>
-    //     <img src="${flags.svg}" alt="${flags.alt}" class="" width="50">
-    //     <h2>
-    //       ${name.official}
-    //     </h2>
-    //     <p>Capital: ${capital}</p>
-    //     <p>Population: ${population}</p>
-    //     <p>Languages: ${Object.values(languages)}</p>
-    //   </li>`
-    , '')
+      </ul>`, '')
   refs.countryListEl.innerHTML = '';
-  
 }
