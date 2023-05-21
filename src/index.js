@@ -32,10 +32,14 @@ function onShowData() {
       createMarkupList(data);      
     } else if (data.length === 1) {
       createMarkupInfo(data);
-    } else 
-       Notify.failure("Oops, there is no country with that name");     
+      } else 
+
+        Notify.failure("Oops, there is no country with that name");     
+     
   })
-  .catch(error => Notify.failure("Oops, there is no country with that name")); 
+    .catch(error => Notify.failure("Oops, there is no country with that name"));
+           refs.countryListEl.innerHTML = '';
+      refs.countryInfoEl.innerHTML = '';
 }
 
 function createMarkupList(data) {
